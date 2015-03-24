@@ -24,35 +24,35 @@ public class LuceneDemo
 	{
 		try
 		{
-			//	Specify the analyzer for tokenizing text.
+		    //	Specify the analyzer for tokenizing text.
 		    StandardAnalyzer analyzer = new StandardAnalyzer();
 
-			//	Code to create the index
-		    //  Create an in-memory index from some strings
-		    //  Indexing involves adding Documents to an IndexWriter 
-			Directory index = new RAMDirectory();
-			IndexWriterConfig config = new IndexWriterConfig(analyzer);
-			IndexWriter w = new IndexWriter(index, config);
-			// Add documents to the index
-			addDoc(w, "Lucene in Action", "193398817");
-			addDoc(w, "Lucene for Dummies", "55320055Z");
-			addDoc(w, "Managing Gigabytes", "55063554A");
-			addDoc(w, "The Art of Computer Science", "9900333X");
-			addDoc(w, "My name is sreejith", "12842d99");
-			addDoc(w, "Lucene demo by sreejith", "23k43413");
-			w.close();
+		    //  Code to create the index
+           	    //  Create an in-memory index from some strings
+         	    //  Indexing involves adding Documents to an IndexWriter 
+		    Directory index = new RAMDirectory();
+		    IndexWriterConfig config = new IndexWriterConfig(analyzer);
+		    IndexWriter w = new IndexWriter(index, config);
+		    // Add documents to the index
+		    addDoc(w, "Lucene in Action", "193398817");
+		    addDoc(w, "Lucene for Dummies", "55320055Z");
+		    addDoc(w, "Managing Gigabytes", "55063554A");
+		    addDoc(w, "The Art of Computer Science", "9900333X");
+		    addDoc(w, "My name is sreejith", "12842d99");
+		    addDoc(w, "Lucene demo by sreejith", "23k43413");
+		    w.close();
 			
 			
-			//	Text to search
-			String querystr = args.length > 0 ? args[0] : "dummies";
-			Query q = new QueryParser("title", analyzer).parse(querystr);
+		    // Text to search
+		    String querystr = args.length > 0 ? args[0] : "dummies";
+		    Query q = new QueryParser("title", analyzer).parse(querystr);
 			
-			// Searching 
-			// Collect the top 10 scoring hits
-			// Searching involves retrieving Documents from an index via an IndexSearcher
-			int hitsPerPage = 10;
-		    IndexReader reader = DirectoryReader.open(index);
-		    IndexSearcher searcher = new IndexSearcher(reader);
+		    // Searching 
+		    // Collect the top 10 scoring hits
+		    // Searching involves retrieving Documents from an index via an IndexSearcher
+		    int hitsPerPage = 10;
+        	    IndexReader reader = DirectoryReader.open(index);
+     		    IndexSearcher searcher = new IndexSearcher(reader);
 		    TopScoreDocCollector collector = TopScoreDocCollector.create(hitsPerPage);
 		    searcher.search(q, collector);
 		    ScoreDoc[] hits = collector.topDocs().scoreDocs;
@@ -85,3 +85,4 @@ public class LuceneDemo
 		  w.addDocument(doc);
 	}
 }
+
