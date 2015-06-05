@@ -27,9 +27,7 @@ public class LuceneDemo
 		    //	Specify the analyzer for tokenizing text.
 		    StandardAnalyzer analyzer = new StandardAnalyzer();
 
-		    //  Code to create the index
            	    //  Create an in-memory index from some strings
-         	    //  Indexing involves adding Documents to an IndexWriter 
 		    Directory index = new RAMDirectory();
 		    IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		    IndexWriter w = new IndexWriter(index, config);
@@ -47,9 +45,7 @@ public class LuceneDemo
 		    String querystr = args.length > 0 ? args[0] : "dummies";
 		    Query q = new QueryParser("title", analyzer).parse(querystr);
 			
-		    // Searching 
-		    // Collect the top 10 scoring hits
-		    // Searching involves retrieving Documents from an index via an IndexSearcher
+		    // Searching : top 10 
 		    int hitsPerPage = 10;
         	    IndexReader reader = DirectoryReader.open(index);
      		    IndexSearcher searcher = new IndexSearcher(reader);
@@ -57,7 +53,7 @@ public class LuceneDemo
 		    searcher.search(q, collector);
 		    ScoreDoc[] hits = collector.topDocs().scoreDocs;
 		    
-		    //	Code to display the results of search
+		    //	Display the results 
 		    System.out.println("Found " + hits.length + " hits.");
 		    for(int i=0;i<hits.length;++i) 
 		    {
@@ -78,9 +74,7 @@ public class LuceneDemo
 	private static void addDoc(IndexWriter w, String title, String isbn) throws IOException 
 	{
 		  Document doc = new Document();
-		  // A text field will be tokenized
 		  doc.add(new TextField("title", title, Field.Store.YES));
-		  // We use a string field for isbn because we don\'t want it tokenized
 		  doc.add(new StringField("isbn", isbn, Field.Store.YES));
 		  w.addDocument(doc);
 	}
