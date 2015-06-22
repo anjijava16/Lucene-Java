@@ -53,7 +53,7 @@ public class LuceneDemo
 		    searcher.search(q, collector);
 		    ScoreDoc[] hits = collector.topDocs().scoreDocs;
 		    
-		    //	Display the results 
+		    //	Display results 
 		    System.out.println("Found " + hits.length + " hits.");
 		    for(int i=0;i<hits.length;++i) 
 		    {
